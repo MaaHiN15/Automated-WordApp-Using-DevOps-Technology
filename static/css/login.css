@@ -1,0 +1,35 @@
+body{
+    background-color: rgb(209, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-form{
+    width: 50%;
+    height: 500px;
+    background-color: rgb(8, 194, 194);
+    margin-top: 100px;
+}
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+}
+input{
+    margin: 10px;
+    width: 250px;
+    height: 30px;
+}
+button{
+    margin: 10px;
+    width: 80px;
+    height: 35px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+h1{
+    color: blue;
+}

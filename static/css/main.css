@@ -1,0 +1,10 @@
+.outline{
+    width: 200px;
+    height: 30px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
