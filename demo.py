@@ -1,3 +1,3 @@
-from app.model import App_class
-
-App_class.definitions("hello")
+import uuid
+objj = str(uuid.uuid4().hex)
+print(objj)
