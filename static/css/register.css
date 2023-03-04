@@ -33,3 +33,10 @@ button{
 h1{
     color: blue;
 }
+.hidden {
+    visibility: hidden;
+  }
+.error-msg {
+    margin-left: 110px;
+    color: red;
+}

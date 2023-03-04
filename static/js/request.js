@@ -350,7 +350,6 @@ document.getElementById("syllables").addEventListener("click", syllables_functio
 document.getElementById("frequency").addEventListener("click", frequency_function)
 document.getElementById("typeOf").addEventListener("click", typeOf_function)
 document.getElementById("hasTypes").addEventListener("click", hasTypes_function)
-
 document.getElementById("partOf").addEventListener("click", partOf_function)
 document.getElementById("hasParts").addEventListener("click", hasParts_function)
 document.getElementById("instanceOf").addEventListener("click", instanceOf_function)

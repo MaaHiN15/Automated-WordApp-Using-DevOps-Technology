@@ -3,21 +3,27 @@ from dotenv import load_dotenv
 import os
 from app.model import App_class
 from user.routes import authentication
+from Prometheus.function import count_home_page_metric
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from prometheus_client import make_wsgi_app
 
 word = ""
 
 application = Flask(__name__)
 
-application.register_blueprint(authentication, url_prefix='/user')
+application.wsgi_app = DispatcherMiddleware(application.wsgi_app, {
+    '/metrics': make_wsgi_app()
+})
 
+application.register_blueprint(authentication, url_prefix='/user')
 
 load_dotenv()
 application.secret_key = os.environ['secret_key']
 
-
 @application.route('/')
 @application.route('/home')
 def home():
+    count_home_page_metric.inc()
     return render_template("home.html")
 
 @application.route('/index', methods=['GET', 'POST'])
