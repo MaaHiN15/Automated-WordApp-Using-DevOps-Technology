@@ -10,6 +10,7 @@ from Prometheus.function import word_fetching_metric
 class Requests_class:
     def norm_requests(word,request_type): 
         word_fetching_metric.inc()
+        print("request comes in")
 
         url = f"https://wordsapiv1.p.rapidapi.com/words/{word}/{request_type}"
         headers = {

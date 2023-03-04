@@ -3,13 +3,15 @@ from dotenv import load_dotenv
 import os
 from app.model import App_class
 from user.routes import authentication
+from user.model import Session_class
 from Prometheus.function import count_home_page_metric
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_client import make_wsgi_app
 
-word = ""
 
 application = Flask(__name__)
+
+word = ""
 
 application.wsgi_app = DispatcherMiddleware(application.wsgi_app, {
     '/metrics': make_wsgi_app()
@@ -23,20 +25,24 @@ application.secret_key = os.environ['secret_key']
 @application.route('/')
 @application.route('/home')
 def home():
+    if session['logged_in']:
+        Session_class.session_deletion()
     count_home_page_metric.inc()
     return render_template("home.html")
 
 @application.route('/index', methods=['GET', 'POST'])
 def index():
-    # if request.method == 'POST':
-    #     global word 
-    #     word = request.form['word']
-    #     return redirect('/main')
+    if request.method == 'POST':
+        global word 
+        word = request.form['word']
+        return redirect('/main')
     return render_template("index.html")
 
 @application.route("/main")
 def main():
     global word
+    if word == "":
+        return redirect('/index')
     return render_template("main.html", word = word )
 
 
@@ -91,6 +97,12 @@ def frequency():
 def typeOf():
     global word
     return jsonify(App_class.typeOf(word))
+
+
+@application.route("/hasTypes")
+def hasTypes():
+    global word
+    return jsonify(App_class.hasTypes(word))
 
 
 @application.route("/partOf")
