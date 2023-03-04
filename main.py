@@ -25,26 +25,35 @@ application.secret_key = os.environ['secret_key']
 @application.route('/')
 @application.route('/home')
 def home():
-    if session['logged_in']:
+    if session.get('name') != None:
         Session_class.session_deletion()
     count_home_page_metric.inc()
     return render_template("home.html")
 
+
+
 @application.route('/index', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        global word 
-        word = request.form['word']
-        return redirect('/main')
-    return render_template("index.html")
+    if session.get('name') != None:
+        if request.method == 'POST':
+            Session_class.session_creation()
+            global word 
+            word = request.form['word']
+            return redirect('/main')
+        return render_template("index.html")
+    return redirect('/home')
+
+
 
 @application.route("/main")
 def main():
-    global word
-    if word == "":
-        return redirect('/index')
-    return render_template("main.html", word = word )
-
+    if session.get('name') != None:
+        Session_class.session_creation()
+        global word
+        if word == "":
+            return redirect('/index')
+        return render_template("main.html", word = word )
+    return redirect('/home')
 
 
 @application.route("/synonyms")
