@@ -10,21 +10,33 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/main-dialog.css">
     <script src="../static/js/extention/popper.js"></script>
     <script src="../static/js/extention/bootstrap.min.js"></script>
 </head>
 
 <body>
-
+    <script>
+        const handleBtnClick = () => {
+            window.dialog.show({
+                content: 'Are you sure?',
+                okText: 'Logout',
+                cancelText: 'Cancel',
+                onOk: () => { window.location.href = '/home' },
+            })
+        }
+    </script>
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class=" p-4 pt-5">
                 <div class="back">
                     <a class="previous" onclick="history.back()" style="color: aliceblue;"><img
-                            src="../static/images/back-arrow.png" alt="" style="width: 20px; height: 20px;  padding-bottom: 3px;">
+                            src="../static/images/back-arrow.png" alt=""
+                            style="width: 20px; height: 20px;  padding-bottom: 3px;">
                         Back</a>
                 </div>
-                <h3 class="title p-3" style="font-size: 30PX; text-align: center; color: rgb(204, 229, 245);">CATEGORY</h3>
+                <h3 class="title p-3" style="font-size: 30PX; text-align: center; color: rgb(204, 229, 245);">CATEGORY
+                </h3>
                 <ul class="list-unstyled components text-center">
                     <li class="active">
                     <li><a id="synonyms">Synonyms</a></li>
@@ -95,10 +107,13 @@
                                         <button class="nav-link btn dropdown-toggle" type="button" id="dropdownMenu2"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Profile</button>
+                                        <button onclick={handleBtnClick()} class="btn-trigger">Logout</button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                            <a href="#"><button class="dropdown-item" type="button">Myaccount</button></a>
+                                            <a href="#"><button class="dropdown-item"
+                                                    type="button">Myaccount</button></a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="#"><button class="dropdown-item" type="button">Log out</button></a>
+                                            <a><button class="dropdown-item button-default link" type="button">Log
+                                                    out</button></a>
                                         </div>
                                     </div>
                                 </li>
@@ -137,6 +152,7 @@
         <script src="../static/js/extention/jquery.min.js"></script>
         <script src="../static/js/main.js"></script>
         <script src="../static/js/request.js"></script>
+        <script src="../static/js/dialogbox.js"></script>
 </body>
 
 </html>

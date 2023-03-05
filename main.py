@@ -36,7 +36,6 @@ def home():
 def index():
     if session.get('name') != None:
         if request.method == 'POST':
-            Session_class.session_creation()
             global word 
             word = request.form['word']
             return redirect('/main')
@@ -48,7 +47,6 @@ def index():
 @application.route("/main")
 def main():
     if session.get('name') != None:
-        Session_class.session_creation()
         global word
         if word == "":
             return redirect('/index')
