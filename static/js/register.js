@@ -7,7 +7,6 @@ function register_function(event) {
     const password = document.getElementById('password').value;
     const cpassword = document.getElementById('cpassword').value;
     const alertmsg = document.getElementById('alertmsg');
-    const db_msg = document.getElementById('msg')
     console.log(name, email, password, cpassword)
 
      if (password != cpassword) {
