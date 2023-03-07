@@ -1,12 +1,12 @@
 FROM python:3.8-alpine
 
-COPY requirements.txt /app
+COPY requirements.txt /application
 
-WORKDIR /app
+WORKDIR /application
 
 RUN pip install -f requirements.txt
 
-COPY . /app
+COPY . /application
 
 EXPOSE 4000
 
