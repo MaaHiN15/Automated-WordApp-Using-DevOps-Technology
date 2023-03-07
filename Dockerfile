@@ -1,10 +1,12 @@
 FROM python:3.8-alpine
 
+RUN mkdir -p /application
+
 COPY requirements.txt /application
 
 WORKDIR /application
 
-RUN pip install -f requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . /application
 
