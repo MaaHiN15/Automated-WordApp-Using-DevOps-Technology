@@ -1,62 +1,64 @@
-from .request import Requests_class 
+from .request import Requests_class
 
 
 class App_class:
-    def synonyms(word) -> dict:
-        return Requests_class.norm_requests(word, "synonyms")
-    def antonyms(word) -> dict:
-        return Requests_class.norm_requests(word, "antonyms")
-    def definitions(word) -> dict:
-        return Requests_class.norm_requests(word, "definitions")
-    def examples(word) -> dict:
-        return Requests_class.norm_requests(word, "examples")
-    def rhymes(word) -> dict:
-        return Requests_class.norm_requests(word, "rhymes")
-    def pronunciation(word) -> dict:
-        return Requests_class.norm_requests(word, "pronunciation")
-    def syllables(word) -> dict:
-        return Requests_class.norm_requests(word, "syllables")
-    def frequency(word) -> dict:
-        return Requests_class.norm_requests(word, "frequency")
-    def typeOf(word) -> dict:
-        return Requests_class.norm_requests(word, "typeOf")
-    def hasTypes(word) -> dict:
-        return Requests_class.norm_requests(word, "hasTypes")
-    def partOf(word) -> dict:
-        return Requests_class.norm_requests(word, "partOf")
-    def hasParts(word) -> dict:
-        return Requests_class.norm_requests(word, "hasParts")
-    def instanceOf(word) -> dict:
-        return Requests_class.norm_requests(word, "instanceOf")
-    def hasInstances(word) -> dict:
-        return Requests_class.norm_requests(word, "hasInstances")
-    def similarTo(word) -> dict:
-        return Requests_class.norm_requests(word, "similarTo")
-    def also(word) -> dict:
-        return Requests_class.norm_requests(word, "also")
-    def entails(word) -> dict:
-        return Requests_class.norm_requests(word, "entails")
-    def memberOf(word) -> dict:
-        return Requests_class.norm_requests(word, "memberOf")
-    def hasMembers(word) -> dict:
-        return Requests_class.norm_requests(word, "hasMembers")
-    def substanceOf(word) -> dict:
-        return Requests_class.norm_requests(word, "substanceOf")
-    def hasSubstances(word) -> dict:
-        return Requests_class.norm_requests(word, "hasSubstances")
-    def inCategory(word) -> dict:
-        return Requests_class.norm_requests(word, "inCategory")
-    def hasCategories(word) -> dict:
-        return Requests_class.norm_requests(word, "hasCategories")
-    def usageOf(word) -> dict:
-        return Requests_class.norm_requests(word, "usageOf")
-    def hasUsages(word) -> dict:
-        return Requests_class.norm_requests(word, "hasUsages")
-    def inRegion(word) -> dict:
-        return Requests_class.norm_requests(word, "inRegion")
-    def regionOf(word) -> dict:
-        return Requests_class.norm_requests(word, "regionOf")
-    def pertainsTo(word) -> dict:
+    def __init__(self):
+      pass
+    def synonyms(self, word) -> dict:
+        return Requests_class().norm_requests(word, "synonyms")
+    def antonyms(self, word) -> dict:
+        return Requests_class().norm_requests(word, "antonyms")
+    def definitions(self, word) -> dict:
+        return Requests_class().norm_requests(word, "definitions")
+    def examples(self, word) -> dict:
+        return Requests_class().norm_requests(word, "examples")
+    def rhymes(self, word) -> dict:
+        return Requests_class().norm_requests(word, "rhymes")
+    def pronunciation(self, word) -> dict:
+        return Requests_class().norm_requests(word, "pronunciation")
+    def syllables(self, word) -> dict:
+        return Requests_class().norm_requests(word, "syllables")
+    def frequency(self, word) -> dict:
+        return Requests_class().norm_requests(word, "frequency")
+    def typeOf(self, word) -> dict:
+        return Requests_class().norm_requests(word, "typeOf")
+    def hasTypes(self, word) -> dict:
+        return Requests_class().norm_requests(word, "hasTypes")
+    def partOf(self, word) -> dict:
+        return Requests_class().norm_requests(word, "partOf")
+    def hasParts(self, word) -> dict:
+        return Requests_class().norm_requests(word, "hasParts")
+    def instanceOf(self, word) -> dict:
+        return Requests_class().norm_requests(word, "instanceOf")
+    def hasInstances(self, word) -> dict:
+        return Requests_class().norm_requests(word, "hasInstances")
+    def similarTo(self, word) -> dict:
+        return Requests_class().norm_requests(word, "similarTo")
+    def also(self, word) -> dict:
+        return Requests_class().norm_requests(word, "also")
+    def entails(self, word) -> dict:
+        return Requests_class().norm_requests(word, "entails")
+    def memberOf(self, word) -> dict:
+        return Requests_class().norm_requests(word, "memberOf")
+    def hasMembers(self, word) -> dict:
+        return Requests_class().norm_requests(word, "hasMembers")
+    def substanceOf(self, word) -> dict:
+        return Requests_class().norm_requests(word, "substanceOf")
+    def hasSubstances(self, word) -> dict:
+        return Requests_class().norm_requests(word, "hasSubstances")
+    def inCategory(self, word) -> dict:
+        return Requests_class().norm_requests(word, "inCategory")
+    def hasCategories(self, word) -> dict:
+        return Requests_class().norm_requests(word, "hasCategories")
+    def usageOf(self, word) -> dict:
+        return Requests_class().norm_requests(word, "usageOf")
+    def hasUsages(self, word) -> dict:
+        return Requests_class().norm_requests(word, "hasUsages")
+    def inRegion(self, word) -> dict:
+        return Requests_class().norm_requests(word, "inRegion")
+    def regionOf(self, word) -> dict:
+        return Requests_class().norm_requests(word, "regionOf")
+    def pertainsTo(self, word) -> dict:
         return Requests_class.norm_requests(word, "pertainsTo")
 
 

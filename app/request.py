@@ -8,7 +8,9 @@ from Prometheus.function import word_fetching_metric
 
 
 class Requests_class:
-    def norm_requests(word,request_type): 
+    def __init__(self):
+        pass
+    def norm_requests(self, word, request_type): 
         word_fetching_metric.inc()
         print("request comes in")
 

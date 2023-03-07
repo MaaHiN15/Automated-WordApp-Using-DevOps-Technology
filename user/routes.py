@@ -16,7 +16,7 @@ def register_user():
         table = db_connect()
         
         if table.find_one({'email':data['email']}):
-            Session_class.session_creation(data)
+            Session_class().session_creation(data)
             return jsonify({'status':301})
         elif(table.insert_one(data)):
             user_creation_metric.inc()
@@ -34,7 +34,7 @@ def login_user():
         table = db_connect()
         fetched_data = table.find_one({'email':data['email']})
         if (fetched_data and pbkdf2_sha256.verify(data['password'], fetched_data['password'])):
-            Session_class.session_creation(fetched_data)
+            Session_class().session_creation(fetched_data)
             user_login_metric.inc()
             return jsonify({'status':200})
         return jsonify({'status':500})
