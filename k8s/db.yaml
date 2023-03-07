@@ -25,7 +25,6 @@ spec:
           value: maahin
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: admin
-
 ---
 apiVersion: v1
 kind: Service

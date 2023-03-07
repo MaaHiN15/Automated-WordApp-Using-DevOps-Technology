@@ -22,7 +22,21 @@ spec:
         - containerPort: 4000
         env:
         - name: DB_URL
-          value: mongodb://maahin:admin@mongo-app:27017
+          valueFrom:
+            configMapKeyRef:
+              name: wordapp-config
+              key: DB_URL
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef: 
+              name: wordapp-secret
+              key: API_KEY
+        - name: API_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: wordapp-config
+              key: API_HOST
+
 ---
 apiVersion: v1
 kind: Service

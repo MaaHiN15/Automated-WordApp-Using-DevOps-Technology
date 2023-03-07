@@ -1,0 +1,2 @@
+Add flask session key in env variable
+
