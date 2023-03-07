@@ -1,0 +1,18 @@
+version: "3"
+services:
+  application:
+    image: maahin/wordapp:1.0
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    links:
+      - mongo-app
+  mongo-app:
+    image: mongo
+    restart: always
+    ports:
+      - "27017-27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: maahin
+      MONGO_INITDB_ROOT_PASSWORD: admin
