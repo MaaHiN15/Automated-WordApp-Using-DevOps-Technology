@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, jsonify, redirect
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
+import os
 from app.model import App_class
 from user.routes import authentication
 from user.model import Session_class
@@ -18,8 +19,8 @@ application.wsgi_app = DispatcherMiddleware(application.wsgi_app, {
 
 application.register_blueprint(authentication, url_prefix='/user')
 
-# load_dotenv()
-# application.secret_key = os.environ['secret_key']
+load_dotenv()
+application.secret_key = os.environ['SECRET_KEY']
 application.secret_key = 'mysessionkey'
 
 
