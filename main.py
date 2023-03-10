@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session, jsonify, redirect
 # from dotenv import load_dotenv
-import os
 from app.model import App_class
 from user.routes import authentication
 from user.model import Session_class
@@ -223,4 +222,4 @@ def pertainsTo():
 
 
 if __name__ == '__main__':
-    application.run( debug=True, host= '0.0.0.0', port = 4000 )
+    application.run( debug=True, host='0.0.0.0', port=4000 )

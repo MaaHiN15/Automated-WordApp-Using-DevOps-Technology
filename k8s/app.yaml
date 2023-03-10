@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: wordapp
-        image: maahin/wordapp:1.0
+        image: maahin/wordapp:3.0
         resources:
           limits:
             memory: "128Mi"
@@ -28,8 +28,8 @@ spec:
               key: DB_URL
         - name: API_KEY
           valueFrom:
-            secretKeyRef: 
-              name: wordapp-secret
+            configMapKeyRef: 
+              name: wordapp-config
               key: API_KEY
         - name: API_HOST
           valueFrom:
@@ -41,12 +41,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wordapp-service
+  labels:
+    app: wordapp
 spec:
   selector:
     app: wordapp
   type: NodePort
   ports:
   - name: wordapp-service-port
+    protocol: TCP
     port: 4000
     targetPort: 4000
     nodePort: 30000
