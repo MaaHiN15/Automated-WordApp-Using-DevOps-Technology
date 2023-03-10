@@ -36,7 +36,6 @@ spec:
             configMapKeyRef:
               name: wordapp-config
               key: API_HOST
-
 ---
 apiVersion: v1
 kind: Service
@@ -47,7 +46,25 @@ spec:
     app: wordapp
   type: NodePort
   ports:
-  - port: 4000
+  - name: wordapp-service-port
+    port: 4000
     targetPort: 4000
     nodePort: 30000
-
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: wordapp-monitor
+  labels:
+    release: kube-prom-stack
+    app: wordapp
+spec:
+  endpoints:    
+  - path: /metrics
+    port: wordapp-service-port
+    targetPort: 4000
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      app: wordapp
