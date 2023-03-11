@@ -34,5 +34,6 @@ spec:
   selector:
     app: mongo-app
   ports:
-  - port: 27017
+  - protocol: TCP
+    port: 27017
     targetPort: 27017

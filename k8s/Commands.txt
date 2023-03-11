@@ -1,0 +1,3 @@
+# Generate a high stress for cpu to get auto scale in/out 
+ 
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.001; do wget -q -O- http://192.168.93.156:30000; done"

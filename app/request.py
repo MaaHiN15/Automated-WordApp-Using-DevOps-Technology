@@ -1,9 +1,9 @@
 import requests
 import os
+import time
 from dotenv import load_dotenv
 load_dotenv()
-from Prometheus.function import word_fetching_metric
-
+from Prometheus.function import wordapp_total_word_fetching_metric, wordapp_api_request_latency
 
 
 
@@ -11,17 +11,13 @@ class Requests_class:
     def __init__(self):
         pass
     def norm_requests(self, word, request_type): 
-        word_fetching_metric.inc()
+        wordapp_total_word_fetching_metric.inc()
         print("request comes in")
-
+        start_time = time.time()
         url = f"https://wordsapiv1.p.rapidapi.com/words/{word}/{request_type}"
-        headers = {
-            "X-RapidAPI-Key": os.environ['API_KEY'],
-            "X-RapidAPI-Host": os.environ['API_HOST']
-            # "X-RapidAPI-Key": 'befe82a31fmsh52d17f8a9619f1ep18a47cjsn8ec61f408cc1',
-            # "X-RapidAPI-Host": 'wordsapiv1.p.rapidapi.com'
-        }
+        headers = { "X-RapidAPI-Key": os.environ['API_KEY'], "X-RapidAPI-Host": os.environ['API_HOST'] }
         print(url)
         response = requests.request("GET", url, headers=headers)
+        wordapp_api_request_latency.observe(time.time() - start_time)
         print(response.text)
         return(response.text)

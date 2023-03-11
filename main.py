@@ -4,7 +4,7 @@ import os
 from app.model import App_class
 from user.routes import authentication
 from user.model import Session_class
-from Prometheus.function import count_home_page_metric
+from Prometheus.function import wordapp_home_page_api_calls
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_client import make_wsgi_app
 
@@ -21,7 +21,6 @@ application.register_blueprint(authentication, url_prefix='/user')
 
 load_dotenv()
 application.secret_key = os.environ['SECRET_KEY']
-application.secret_key = 'mysessionkey'
 
 
 @application.route('/')
@@ -29,7 +28,7 @@ application.secret_key = 'mysessionkey'
 def home():
     if session.get('name') != None:
         Session_class().session_deletion()
-    count_home_page_metric.inc()
+    wordapp_home_page_api_calls.inc()
     return render_template("home.html")
 
 
@@ -50,9 +49,10 @@ def index():
 def main():
     if session.get('name') != None:
         global word
+        html_word = word.upper()
         if word == "":
             return redirect('/index')
-        return render_template("main.html", word = word )
+        return render_template("main.html", word = html_word )
     return redirect('/home')
 
 
