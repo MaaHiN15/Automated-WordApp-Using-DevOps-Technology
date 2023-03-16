@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alert-manager-config
+  namespace: observability
+spec:
+  route:
+    receiver: 'email'
+    repeatInterval: 10m
+    routes:
+    - matchers:
+      - name: alertname
+        value: K8s_pod_crash_looping
+      repeatInterval: 5m
+    - matchers:
+      - name: alertname
+        value: host_medium_cpu_load
+    - matchers:
+      - name: alertname
+        value: host_high_cpu_load
+      repeatInterval: 10m
+  receivers:
+  - name: 'email'
+    emailConfigs: 
+    - to: 'devildna15@gmail.com'
+      from: 'devildna15@gmail.com'
+      smarthost: 'smtp.gmail.com:587'
+      authUsername: 'devildna15@gmail.com'
+      authIdentity: 'devildna15@gmail.com'
+      authPassword: 
+        name: config-alertmanager-secret
+        key: password
