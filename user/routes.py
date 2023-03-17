@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
-from .db import db_connect
+from db import db_connect
 from uuid import uuid4
 from .model import Session_class
 from passlib.hash import pbkdf2_sha256
@@ -32,6 +32,7 @@ def login_user():
         data = request.get_json()
         table = db_connect()
         fetched_data = table.find_one({'email':data['email']})
+        print(fetched_data)
         if (fetched_data and pbkdf2_sha256.verify(data['password'], fetched_data['password'])):
             Session_class().session_creation(fetched_data)
             wordapp_user_login_metric.inc()

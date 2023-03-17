@@ -7,6 +7,7 @@ from user.model import Session_class
 from Prometheus.function import wordapp_home_page_api_calls
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_client import make_wsgi_app
+from app.bookmark import Bookmark, read_bookmark
 
 
 application = Flask(__name__)
@@ -26,8 +27,8 @@ application.secret_key = os.environ['SECRET_KEY']
 @application.route('/')
 @application.route('/home')
 def home():
-    if session.get('name') != None:
-        Session_class().session_deletion()
+    # if session.get('name') != None:
+    #     Session_class().session_deletion()
     wordapp_home_page_api_calls.inc()
     return render_template("home.html")
 
@@ -49,12 +50,58 @@ def index():
 def main():
     if session.get('name') != None:
         global word
+        if(Bookmark().check_bookmark(word)):
+            is_bookmark = True
+        else:
+            is_bookmark = False
         html_word = word.upper()
+        name = session.get('name')
         if word == "":
             return redirect('/index')
-        return render_template("main.html", word = html_word )
+        return render_template("main.html", word = html_word, is_bookmark = is_bookmark, name = name )
     return redirect('/home')
 
+
+
+
+#######################################################################################################################
+################################################## Bookmark functions #################################################
+
+
+@application.route('/add-bookmark')
+def addbookmark():
+    global word
+    word.lower()
+    Bookmark().add_bookmark(word)
+    return jsonify({'status' : 200 })
+
+
+@application.route("/remove-bookmark")
+def removebookmark():
+    global word
+    Bookmark().remove_bookmark(word)
+    return jsonify({'status': 200})
+
+
+@application.route('/get-bookmarks')
+def get_bookmarks():
+    temp = read_bookmark()
+    data = temp['bookmarks']
+    return jsonify({'status':200, 'bookmarks' : data})
+
+@application.route('/change-word-by-bookmark', methods = ['GET', 'POST'])
+def change_word_by_bookmark():
+    global word
+    data = request.get_json()
+    word = data['word']
+    return jsonify({'status':200})
+
+
+
+
+
+#######################################################################################################################
+############################################### Word functions#########################################################
 
 @application.route("/synonyms")
 def synonyms():

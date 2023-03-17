@@ -12,12 +12,9 @@ class Requests_class:
         pass
     def norm_requests(self, word, request_type): 
         wordapp_total_word_fetching_metric.inc()
-        print("request comes in")
         start_time = time.time()
         url = f"https://wordsapiv1.p.rapidapi.com/words/{word}/{request_type}"
         headers = { "X-RapidAPI-Key": os.environ['API_KEY'], "X-RapidAPI-Host": os.environ['API_HOST'] }
-        print(url)
         response = requests.request("GET", url, headers=headers)
         wordapp_api_request_latency.observe(time.time() - start_time)
-        print(response.text)
         return(response.text)
