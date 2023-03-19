@@ -60,7 +60,6 @@ function createCaptcha() {
 }
 function validateCaptcha(event) {
   event.preventDefault();
-  debugger
   if (document.getElementById("cpatchaTextBox").value == code) {
     login_function(this);
     console.log("validate captcha comes")
@@ -71,4 +70,4 @@ function validateCaptcha(event) {
 }
 
 
-document.getElementById("login").addEventListener('click', validateCaptcha);
+document.getElementById("login").addEventListener('submit', validateCaptcha);

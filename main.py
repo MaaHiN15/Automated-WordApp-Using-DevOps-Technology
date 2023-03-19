@@ -27,8 +27,8 @@ application.secret_key = os.environ['SECRET_KEY']
 @application.route('/')
 @application.route('/home')
 def home():
-    # if session.get('name') != None:
-    #     Session_class().session_deletion()
+    if session.get('name') != None:
+        Session_class().session_deletion()
     wordapp_home_page_api_calls.inc()
     return render_template("home.html")
 

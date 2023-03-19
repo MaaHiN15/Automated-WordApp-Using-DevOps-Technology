@@ -11,16 +11,18 @@ class Bookmark:
     def __init__(self) -> None:
         self.table = bookmark_table
         self.id = session.get('_id')
+        self.clip = {}
+        self.clip['_id'] = session.get('_id')
+        self.clip['bookmarks'] = []
+
         
     def add_bookmark(self, append_word):
         bookmark_data = loads(dumps(read_bookmark()))
         if bookmark_data == []:
-            clip = {}
-            clip['_id'] = session.get('_id')
             bm_list = [append_word]
-            clip['bookmarks'] = bm_list
-            self.table.insert_one(clip)
-        elif bookmark_data.get('bookmarks') is None:
+            self.clip['bookmarks'] = bm_list
+            self.table.insert_one(self.clip)
+        elif bookmark_data.get('bookmarks') == []:
             self.table.update_one({'_id':self.id}, { "$set" : { "bookmarks" : list([append_word]) }})
         elif bookmark_data.get('bookmarks') is not None:
             data = bookmark_data['bookmarks']
@@ -35,6 +37,9 @@ class Bookmark:
 
     def check_bookmark(self, check_word):
         temp = read_bookmark()
+        if temp is None:
+            self.table.insert_one(self.clip)
+            return False
         data = temp['bookmarks']
         if check_word in data:
             return True

@@ -97,6 +97,7 @@ button[type="submit"]{
 button[type="submit"]:hover{
   border-color: #2691d9;
   transition: .5s;
+  cursor: pointer;
 }
 .signup_link{
   margin: 30px 0;

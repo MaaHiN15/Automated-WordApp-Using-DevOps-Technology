@@ -11,7 +11,7 @@
     <div class="center">
         <h1>Login</h1>
         <p id="msg" class="hidden">Enter valid credentials</p>
-        <form>
+        <form id="login">
             <div class="txt_field">
                 <input type="email" id="email" required>
                 <span></span>
@@ -25,10 +25,10 @@
 
             <div style="display: flex; flex-direction: row;">
                 <div id="captcha"></div>
-                <input type="text" placeholder="Enter Captcha" style="height: 35px; margin-left: 50px; border: 2px solid grey; border-radius: 3px;" id="cpatchaTextBox" />
+                <input type="text" placeholder=" Captcha" style="height: 35px; margin-left: 50px; border: 2px solid grey; border-radius: 3px;" id="cpatchaTextBox" />
             </div>
             <div class="pass">Forgot Password?</div>
-            <button type="submit" id="login">Login</button>
+            <button type="submit">Login</button>
             <div class="signup_link">Not a member? <a href="/user/register">Signup</a>
             </div>
         </form>

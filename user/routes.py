@@ -13,16 +13,18 @@ def register_user():
         data = request.get_json()
         data.update({'_id': uuid4().hex})
         data.update({'password': pbkdf2_sha256.encrypt(data['password'])})
+        print(data)
+        print(data['email'])
         table = db_connect()
         if table.find_one({'email':data['email']}):
-            Session_class().session_creation(data)
-            return jsonify({'status':301})
+            return jsonify({'status':300})
         elif(table.insert_one(data)):
+            Session_class().session_creation(data)
             wordapp_user_creation_metric.inc()
             return jsonify({'status':200})
         else:
             print("User registration failure")
-            return jsonify({'status:':500})
+        # return jsonify({'status': 300})
     return render_template("register.html")
 
 
@@ -32,7 +34,6 @@ def login_user():
         data = request.get_json()
         table = db_connect()
         fetched_data = table.find_one({'email':data['email']})
-        print(fetched_data)
         if (fetched_data and pbkdf2_sha256.verify(data['password'], fetched_data['password'])):
             Session_class().session_creation(fetched_data)
             wordapp_user_login_metric.inc()
