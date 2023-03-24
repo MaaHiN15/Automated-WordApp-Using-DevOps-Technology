@@ -13,8 +13,6 @@ def register_user():
         data = request.get_json()
         data.update({'_id': uuid4().hex})
         data.update({'password': pbkdf2_sha256.encrypt(data['password'])})
-        print(data)
-        print(data['email'])
         table = db_connect()
         if table.find_one({'email':data['email']}):
             return jsonify({'status':300})

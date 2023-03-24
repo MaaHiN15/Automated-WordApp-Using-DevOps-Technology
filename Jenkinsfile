@@ -1,14 +1,19 @@
 pipeline{
     agent any
     stages{
+        stage("Jenkins permissions"){
+            steps{
+                sh "sudo chown root:jenkins /run/docker.sock"
+            }
+        }
         stage("Docker login"){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'docker-credential', usernameVariable: 'USER', passwordVariable: 'PASS')]){
                     sh "echo $PASS | docker login -u $USER --password-stdin"
                     sh "echo Docker Login succeed"
                 }
-                }
             }
+        }
         stage('Auto Version Increment') {
             steps {
                 script {
@@ -30,15 +35,16 @@ pipeline{
         }
         stage('Kubernetes Login') {
             steps {
+                sh 'microk8s status'
                 sh 'microk8s kubectl get nodes'
             }
         }
-        stage("Prometheus Installation"){
-            steps{
-                script{
+        // stage("Prometheus Installation"){
+        //     steps{
+        //         script{
 
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
     }
 }

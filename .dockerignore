@@ -9,3 +9,4 @@ k8s/*
 .gitignore
 jenkinsfile
 README.md
+zzzz.txt

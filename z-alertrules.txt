@@ -1,4 +1,0 @@
-1. The average number of CPU cores used during the last 5 minutes per each node
-
-(sum(rate(container_cpu_usage_seconds_total{container!=""}[1m])) by (node) * 100) > 50
-

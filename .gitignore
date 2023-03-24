@@ -5,3 +5,4 @@ app/__pycache__/*
 Prometheus/__pycache__/*
 user/__pycache__/*
 .vscode/*
+zzzz.txt

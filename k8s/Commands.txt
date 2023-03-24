@@ -4,4 +4,4 @@ kubectl run cpu-test --image containerstack/cpustress -- --cpu 4 --timeout 60s -
 
 # For crashLoopBackOff 
 
- kubectl run -i --tty load-generator --image=busybox:1.28 -- /bin/sh -c "echo completed"
+kubectl run -i --tty load-generator --image=busybox:1.28 -- /bin/sh -c "echo completed"

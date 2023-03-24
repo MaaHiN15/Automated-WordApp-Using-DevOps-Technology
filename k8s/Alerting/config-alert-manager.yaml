@@ -5,7 +5,7 @@ metadata:
   namespace: observability
 spec:
   route:
-    receiver: 'email'
+    receiver: 'slack'
     repeatInterval: 10m
     routes:
     - matchers:
@@ -20,13 +20,8 @@ spec:
         value: host_high_cpu_load
       repeatInterval: 10m
   receivers:
-  - name: 'email'
-    emailConfigs: 
-    - to: 'devildna15@gmail.com'
-      from: 'devildna15@gmail.com'
-      smarthost: 'smtp.gmail.com:587'
-      authUsername: 'devildna15@gmail.com'
-      authIdentity: 'devildna15@gmail.com'
-      authPassword: 
-        name: config-alertmanager-secret
-        key: password
+  - name: 'slack'
+    slackConfigs:
+    - apiURL:
+        name: secret-webHookURL
+        key: url
