@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: wordapp
-        image: maahin/wordapp:5.0
+        image: maahin/wordapp:$DOCKER_IMAGE_TAG
         resources:
           limits:
             memory: "128Mi"
