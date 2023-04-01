@@ -6,3 +6,4 @@ Prometheus/__pycache__/*
 user/__pycache__/*
 .vscode/*
 zzzz.txt
+k8s/config.yaml
