@@ -137,9 +137,10 @@ body {
   margin-right: 40%;
 }
 .des{
-  padding-top: 10%;
+  padding-top: 2%;
   padding-left: 9%;
   margin-right: 3rem;
+  text-align: justify;
 }
 
 .image {
@@ -173,4 +174,14 @@ body {
 body:active * {
   -webkit-animation: none !important;
           animation: none !important;
+}
+
+
+.home{
+  position: absolute;
+  display: block;
+  top: 0%;
+  background: none;
+  background-color: none;
+  /* opacity: 0.6; */
 }

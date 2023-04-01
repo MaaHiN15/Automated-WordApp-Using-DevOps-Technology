@@ -9,8 +9,12 @@ class Session_class:
         session['logged_in'] = True
         session['name'] = user['name']
         session['_id'] = user['_id']
+        session['email'] = user['email']
+        session['phoneno'] = user['ph_num']
     def session_deletion(self):
         wordapp_session_logged_out_total.inc()
         del session['logged_in']
         del session['name']
         del session['_id']
+        del session['email']
+        del session['phoneno']

@@ -99,20 +99,38 @@
                   <div class="dropdown-divider"></div>
                   <div class="tabs">
                     <ul id="bm-ul-element" class="bookmark-list">
-                      <a id="bm-lists"><li class="bookmark-list-items"></li>
-                      <div class="dropdown-divider"></div></a>
+                      <a id="bm-lists">
+                        <li class="bookmark-list-items"></li>
+                        <div class="dropdown-divider"></div>
+                      </a>
                     </ul>
                   </div>
                 </div>
               </div>
-              <div class="dropdown">
+              <div class="dropdown" id="profile-touch">
                 <button class="nav-link btn dropdown-toggle" style="color:  rgb(93, 101, 101);" type="button"
-                  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">{{name}}</button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <a href="index.html"><button class="dropdown-item" type="button">My account</button></a>
+                  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{name}}</button>
+                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenu2">
+                  <div class="dropdown-item d-flex justify-content-around">
+                    <div class="profile-left"><img src="../static/images/person-bounding-box.svg" alt=""
+                        style="height: 90px; width: 50px;"></div>
+                    <div class="profile-right px-4 mb-0">
+                      <div class="" style="margin: 0; padding: 0;">
+                        <b>
+                          <p id="profile-name" style="margin: 0; padding: 0;margin-bottom: 5px"></p>
+                        </b>
+                      </div>
+                      <div style="font-size: small;">
+                        <p id="profile-email" style="margin: 0; padding: 0; margin-bottom: 5px;"></p>
+                      </div>
+                      <div class="p-mobile" style="font-size: small;margin: 0; padding: 0;">
+                        <p id="profile-phoneno" style="margin:  0; padding: 0;"></p>
+                      </div>
+                    </div>
+                  </div>
                   <div class="dropdown-divider"></div>
-                  <button class="dropdown-item button-default link btn-trigger" onclick={handleBtnClick()} type="button">Logout</button>
+                  <button class="dropdown-item button-default link btn-trigger text-danger" style="text-align: center;"
+                    onclick={handleBtnClick()} type="button">Logout</button>
                 </div>
               </div>
             </div>
@@ -134,13 +152,15 @@
           <div class="col-lg-6 mx-auto">
             <!-- CUSTOM BLOCKQUOTE -->
             <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
-              <a><div id="bookmark-tab" title="Add your Bookmarks" class="blockquote-custom-icon bg-info shadow-sm">
-                {% if is_bookmark is sameas false %}
-                <i id="icon" class="fa fa-star text-white"></i>
-                {% elif is_bookmark is sameas true %}
-                <i id="icon" class="fa fa-star text-warning"></i>
-                {% endif %}
-              </div></a>
+              <a>
+                <div id="bookmark-tab" title="Add your Bookmarks" class="blockquote-custom-icon bg-info shadow-sm">
+                  {% if is_bookmark is sameas false %}
+                  <i id="icon" class="fa fa-star text-white"></i>
+                  {% elif is_bookmark is sameas true %}
+                  <i id="icon" class="fa fa-star text-warning"></i>
+                  {% endif %}
+                </div>
+              </a>
               <div class="dropdown-divider"></div>
               <p class="mb-0 mt-4 font-italic">
               <ul class="list-details font-italic" style="font-size: 16px;">
@@ -157,6 +177,7 @@
     <script src="../static/js/request.js"></script>
     <script src="../static/js/dialogbox.js"></script>
     <script src="../static/js/bookmark.js"></script>
+    <script src="../static/js/profile.js"></script>
 </body>
 
 </html>
