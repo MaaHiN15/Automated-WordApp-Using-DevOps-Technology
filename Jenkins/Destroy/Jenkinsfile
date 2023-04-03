@@ -1,0 +1,30 @@
+pipeline{
+    agent any
+    environment {
+    KUBECONFIG = credentials('minikube-config')
+    }
+    stages{
+        stage("Permissions"){
+            steps{
+                sh "sudo chown root:jenkins /run/docker.sock"
+                sh "sudo chmod 777 /var/run/docker.sock"
+            }
+        }
+        stage('Kubernetes Login') {
+            steps {
+                echo 'Loggin into k8s'
+                sh 'kubectl get nodes'
+            }
+        }
+        stage("Application removal"){
+            steps{
+                script{
+                    echo 'Deploying application container'
+                    sh 'kubectl delete -f k8s/db.yaml'
+                    sh 'kubectl delete -f k8s/view_db.yaml'
+                    sh 'kubectl delete -f k8s/app.yaml'
+                }
+            }
+        }
+    }
+}

@@ -5,9 +5,10 @@ pipeline{
 
     }
     stages{
-        stage("Jenkins permissions"){
+        stage("Permissions"){
             steps{
                 sh "sudo chown root:jenkins /run/docker.sock"
+                sh "sudo chmod 777 /var/run/docker.sock"
             }
         }
         stage("Docker login"){
