@@ -25,14 +25,15 @@ pipeline{
                     def currentVersion = readFile(versionFile).trim()
                     sh "echo ${currentVersion} > version.txt"
                     env.DOCKER_IMAGE_TAG = "${currentVersion}-${env.BUILD_ID}"
+                    env.DOCKER_IMAGE = "maahin/wordapp:${env.DOCKER_IMAGE_TAG}"
                 }
             }
         }
         stage("Docker push"){
             steps {
                 script {
-                    sh "sudo docker build -t maahin/maahin-app:${env.DOCKER_IMAGE_TAG} ."
-                    sh "sudo docker push maahin/maahin-app:${env.DOCKER_IMAGE_TAG}"
+                    sh "sudo docker build -t maahin/wordapp:${env.DOCKER_IMAGE_TAG} ."
+                    sh "sudo docker push maahin/wordapp:${env.DOCKER_IMAGE_TAG}"
                     sh "echo Image build and Pushed to Repo"
                 }
             } 
@@ -49,7 +50,7 @@ pipeline{
                     echo 'Deploying application container'
                     sh 'kubectl apply -f k8s/db.yaml'
                     sh 'kubectl apply -f k8s/view_db.yaml'
-                    sh "sed -i 's|{{DOCKER_IMAGE}}|${env.DOCKER_IMAGE_TAG}|g' k8s/app.yaml"
+                    sh "sed -i 's|{{DOCKER_IMAGE}}|${env.DOCKER_IMAGE}|g' k8s/app.yaml"
                     sh 'kubectl apply -f k8s/app.yaml'
                 }
             }
