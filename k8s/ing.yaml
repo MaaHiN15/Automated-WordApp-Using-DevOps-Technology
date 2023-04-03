@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordapp-ingress
+spec:
+  rules:
+  - host: "wordapp.maahin.tech"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: wordapp-service
+            port:
+              number: 4000

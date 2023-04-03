@@ -58,6 +58,7 @@ pipeline{
         stage('Application end point') {
             steps {
                 sh 'kubectl get svc'
+                sh 'minikube service wordapp-service'
             }
         }
     }
