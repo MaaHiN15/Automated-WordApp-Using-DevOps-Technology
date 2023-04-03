@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: wordapp
-        image: maahin/wordapp:7.0
+        image: "{{DOCKER_IMAGE}}"
         resources:
           limits:
             memory: "128Mi"
@@ -58,7 +58,7 @@ spec:
     port: 4000
     targetPort: 4000
     nodePort: 30000
----
+# ---
 # apiVersion: monitoring.coreos.com/v1
 # kind: ServiceMonitor
 # metadata:
@@ -77,33 +77,33 @@ spec:
 #     matchLabels:
 #       app: wordapp
 # ---
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: wordapp-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: wordapp
-  minReplicas: 1
-  maxReplicas: 3
-  behavior:
-    scaleDown:
-      policies:
-      - type: Percent
-        value: 20
-        periodSeconds: 30
-    scaleUp:
-      policies:
-      - type: Percent
-        value: 60
-        periodSeconds: 15
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 50
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: wordapp-hpa
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: wordapp
+#   minReplicas: 1
+#   maxReplicas: 3
+#   behavior:
+#     scaleDown:
+#       policies:
+#       - type: Percent
+#         value: 20
+#         periodSeconds: 30
+#     scaleUp:
+#       policies:
+#       - type: Percent
+#         value: 60
+#         periodSeconds: 15
+#   metrics:
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: Utilization
+#         averageUtilization: 50
 
