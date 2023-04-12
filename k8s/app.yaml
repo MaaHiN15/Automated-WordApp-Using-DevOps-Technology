@@ -13,7 +13,8 @@ spec:
     spec:
       containers:
       - name: wordapp
-        image: "{{DOCKER_IMAGE}}"
+        # image: "{{DOCKER_IMAGE}}"
+        image: maahin/wordapp:1.0.1-11
         resources:
           limits:
             memory: "128Mi"
@@ -51,20 +52,20 @@ metadata:
 spec:
   selector:
     app: wordapp
-  type: NodePort
+  type: ClusterIP
   ports:
   - name: wordapp-service-port
     protocol: TCP
     port: 4000
     targetPort: 4000
-    nodePort: 30000
+    # nodePort: 30000
 # ---
 # apiVersion: monitoring.coreos.com/v1
 # kind: ServiceMonitor
 # metadata:
 #   name: wordapp-monitor
 #   labels:
-#     release: kube-prom-stack
+#     release: prometheus
 #     app: wordapp
 # spec:
 #   endpoints:    

@@ -47,16 +47,15 @@ body{
   justify-content: space-between;
   margin: 20px 0 12px 0;
 }
-form .user-details .input-box{
+.input-box{
   margin-bottom: 15px;
   width: calc(100% / 2 - 20px);
 }
-form .input-box span.details{
+.input-box span.details{
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
-}
-.user-details .input-box input{
+} .input-box input{
   height: 45px;
   width: 100%;
   outline: none;
@@ -67,8 +66,8 @@ form .input-box span.details{
   border-bottom-width: 2px;
   transition: all 0.3s ease;
 }
-.user-details .input-box input:focus,
-.user-details .input-box input:valid{
+.input-box input:focus,
+.input-box input:valid{
   border-color: #9b59b6;
 }
  form .gender-details .gender-title{
@@ -106,7 +105,7 @@ form .input-box span.details{
  }
  form .button{
    height: 45px;
-   margin: 35px 0
+   margin: 10px 5px 20px 4px;
  }
  form .button button{
    height: 100%;
@@ -122,7 +121,7 @@ form .input-box span.details{
    background: linear-gradient(135deg, #71b7e6, #a9dae6);
  }
  form .button button:hover{
-  /* transform: scale(0.99); */
+  transform: scale(0.97);
   background: linear-gradient(-135deg, #71b7e6, #a9dae6);
   }
  @media(max-width: 584px){

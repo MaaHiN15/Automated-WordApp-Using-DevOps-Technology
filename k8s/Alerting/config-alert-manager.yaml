@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
   name: alert-manager-config
-  namespace: observability
+  namespace: monitoring
 spec:
   route:
     receiver: 'slack'
@@ -23,5 +23,19 @@ spec:
   - name: 'slack'
     slackConfigs:
     - apiURL:
-        name: secret-webHookURL
+        name: secret-webhookurl
         key: url
+      color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+      title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] Prometheus Event Notification'
+      pretext: '{{ .CommonAnnotations.summary }}'
+      text: |-
+        {{ range .Alerts }}
+          {{- if or .Annotations.summary .Annotations.description }}*Alert:* {{ .Annotations.summary }}{{ .Annotations.description }} - `{{ .Labels.severity }}`{{- end }}
+          {{ if .Annotations.message }}*Message:* {{ .Annotations.message }}{{ end }}
+          {{ if or .Annotations.graph .Annotations.graphUrl }}*Graph:* <{{ .Annotations.graph }}{{ .Annotations.graphUrl }}|:chart_with_upwards_trend:>{{ end }}{{ if or .Annotations.grafana .Annotations.grafanaUrl }}*Grafana:* <{{ .Annotations.grafana }}{{ .Annotations.grafanaUrl }}|:bar_chart:>{{ end }} {{ if or .Annotations.runbook .Annotations.runbook_url }} *Runbook:* <{{ .Annotations.runbook }}{{ .Annotations.runbook_url }}|:spiral_note_pad:>{{ end }}
+          *Details:*
+          {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+          {{ end }}
+        {{ end }}
+      sendResolved: true
+      

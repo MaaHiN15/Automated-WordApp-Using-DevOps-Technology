@@ -16,3 +16,8 @@ def bookmark_db_connect():
     global client
     return client.db.bookmarks
 
+
+def recent_searches_connect():
+    global client
+    return client.db.recentsearch
+

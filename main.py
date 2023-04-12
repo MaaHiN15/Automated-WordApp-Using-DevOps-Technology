@@ -8,6 +8,7 @@ from Prometheus.function import wordapp_home_page_api_calls
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_client import make_wsgi_app
 from app.bookmark import Bookmark, read_bookmark
+from app.rec_search import Recent_search
 
 
 application = Flask(__name__)
@@ -37,11 +38,13 @@ def home():
 @application.route('/index', methods=['GET', 'POST'])
 def index():
     if session.get('name') != None:
+        global word 
         if request.method == 'POST':
-            global word 
             word = request.form['word']
+            Recent_search().add_recents(word)
             return redirect('/main')
-        return render_template("index.html")
+        recent_searches = Recent_search().check_recents()
+        return render_template("index.html", words = recent_searches)
     return redirect('/home')
 
 
@@ -109,6 +112,18 @@ def profile():
     return jsonify({'name': name, 'email': email, 'phone_no': phone_no})
 
 
+
+
+#######################################################################################################################
+############################################### Recent Search# ########################################################
+
+
+@application.route('/recent-search', methods = ['GET', 'POST'])
+def recent_search_response():
+    data = request.get_json()
+    global word
+    word = data['word']
+    return jsonify({'status':200})
 
 
 #######################################################################################################################

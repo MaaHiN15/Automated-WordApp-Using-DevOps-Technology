@@ -1,5 +1,5 @@
 from db import bookmark_db_connect
-from flask import session, jsonify
+from flask import session
 from bson.json_util import dumps, loads
 bookmark_table = bookmark_db_connect()
 

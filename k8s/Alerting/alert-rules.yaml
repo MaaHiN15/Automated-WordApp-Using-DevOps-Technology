@@ -2,10 +2,10 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata: 
   name: wordapp-custom-rules
-  namespace: observability
+  namespace: monitoring
   labels:
-    app: kube-prometheus-stack
-    release: kube-prom-stack
+    release: prometheus
+    app: kube-prometheus-stack-prometheus
 spec:
   groups:
   - name: wordapp.rules
@@ -15,7 +15,7 @@ spec:
       for: 0m
       labels:
         severity: warning
-        namespace: observability
+        namespace: monitoring
       annotations:
         description: "Cpu load on host is in warning state \n The value {{ $value }} \n"
         summary: "Cpu load is in warning state \n"
@@ -24,7 +24,7 @@ spec:
       for: 0m
       labels:
         severity: critical
-        namespace: observability
+        namespace: monitoring
       annotations:
         description: "Cpu load on host is high \n The value {{ $value }} \n"
         summary: "Cpu load is in critical state \n"
@@ -33,7 +33,7 @@ spec:
       for: 0m
       labels:
         severity: critical
-        namespace: observability
+        namespace: monitoring
       annotations:
         description: "Pod {{ $labels.pod }} is crash looping \n No. of times={{$value}} \n"
         summary: "Pod is crash looping over 2 times \n"
