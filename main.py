@@ -61,7 +61,6 @@ def main():
         name = session.get('name')
         if word == "":
             return redirect('/index')
-            # hello
         return render_template("main.html", word = html_word, is_bookmark = is_bookmark, name = name )
     return redirect('/home')
 
