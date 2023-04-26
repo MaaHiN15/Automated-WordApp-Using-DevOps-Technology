@@ -2,24 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo-app
+  labels:
+    app: mongo
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: mongo-app
+      app: mongo
   template:
     metadata:
       labels:
-        app: mongo-app
+        app: mongo
     spec:
+      restartPolicy: Always
       containers:
-      - name: mongo-app
+      - name: mongo
         image: mongo
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
-        - containerPort: 4000
+        - containerPort: 27017
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: maahin
@@ -29,10 +29,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongo-app
+  name: mongo-service
 spec:
   selector:
-    app: mongo-app
+    app: mongo
   ports:
   - protocol: TCP
     port: 27017

@@ -6,6 +6,7 @@ load_dotenv()
 client = MongoClient(os.environ['DB_URL'])
 
 
+
 def db_connect():
     global client
     # client.db.auth.drop()

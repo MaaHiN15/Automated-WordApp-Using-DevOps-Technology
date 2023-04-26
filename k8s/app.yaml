@@ -14,7 +14,7 @@ spec:
       containers:
       - name: wordapp
         # image: "{{DOCKER_IMAGE}}"
-        image: maahin/wordapp:1.0.1-11
+        image: maahin/wordapp:1.0.50
         resources:
           limits:
             memory: "128Mi"
@@ -23,10 +23,7 @@ spec:
         - containerPort: 4000
         env:
         - name: DB_URL
-          valueFrom:
-            configMapKeyRef:
-              name: wordapp-config
-              key: DB_URL
+          value: mongodb://maahin:admin@mongo-service:27017/
         - name: API_KEY
           valueFrom:
             configMapKeyRef: 
@@ -58,7 +55,6 @@ spec:
     protocol: TCP
     port: 4000
     targetPort: 4000
-    # nodePort: 30000
 # ---
 # apiVersion: monitoring.coreos.com/v1
 # kind: ServiceMonitor
