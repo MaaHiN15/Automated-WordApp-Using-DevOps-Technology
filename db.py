@@ -13,6 +13,7 @@ def db_connect():
     return client.db.auth
 
 
+
 def bookmark_db_connect():
     global client
     return client.db.bookmarks
