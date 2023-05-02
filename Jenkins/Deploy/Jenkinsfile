@@ -2,7 +2,6 @@ pipeline{
     agent any
     environment {
     KUBECONFIG = credentials('minikube-config')
-
     }
     stages{
         stage("Permissions"){
@@ -11,49 +10,20 @@ pipeline{
                 sh "sudo chmod 777 /var/run/docker.sock"
             }
         }
-        stage("Docker login"){
-            steps{
-                withCredentials([usernamePassword(credentialsId: 'docker-credential', usernameVariable: 'USER', passwordVariable: 'PASS')]){
-                    sh "echo $PASS | docker login -u $USER --password-stdin"
-                    sh "echo Docker Login succeed"
-                }
-            }
-        }
-        stage('Auto Version Increment') {
-            steps {
-                script {
-                    def versionFile = 'version.txt'
-                    def currentVersion = readFile(versionFile).trim()
-                    sh "echo ${currentVersion} > version.txt"
-                    env.DOCKER_IMAGE_TAG = "${currentVersion}-${env.BUILD_ID}"
-                    env.DOCKER_IMAGE = "maahin/wordapp:${env.DOCKER_IMAGE_TAG}"
-                }
-            }
-        }
-        stage("Docker push"){
-            steps {
-                script {
-                    sh "sudo docker build -t maahin/wordapp:${env.DOCKER_IMAGE_TAG} ."
-                    sh "sudo docker push maahin/wordapp:${env.DOCKER_IMAGE_TAG}"
-                    sh "echo Image build and Pushed to Repo"
-                }
-            } 
-        }
         stage('Kubernetes Login') {
             steps {
                 echo 'Loggin into k8s'
                 sh 'kubectl get nodes'
             }
         }
-        stage("Application deployment"){
+        stage("Application removal"){
             steps{
                 script{
                     echo 'Deploying application container'
+                    sh "sed -i 's|{{DOCKER_IMAGE}}|maahin/wordapp:2.0.1-19|g' k8s/app.yaml"
                     sh 'kubectl apply -f k8s/db.yaml'
                     sh 'kubectl apply -f k8s/view_db.yaml'
-                    sh "sed -i 's|{{DOCKER_IMAGE}}|${env.DOCKER_IMAGE}|g' k8s/app.yaml"
                     sh 'kubectl apply -f k8s/app.yaml'
-                    sh 'kubectl apply -f k8s/ing.yaml'
                 }
             }
         }
