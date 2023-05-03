@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: wordapp
-        image: "{{DOCKER_IMAGE}}"
-        # image: maahin/wordapp:2.0.1-19
+        # image: "{{DOCKER_IMAGE}}"
+        image: maahin/wordapp:2.0.1-19
         resources:
           limits:
             memory: "128Mi"
