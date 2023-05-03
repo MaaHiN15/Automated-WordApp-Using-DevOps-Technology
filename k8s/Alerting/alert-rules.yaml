@@ -19,6 +19,7 @@ spec:
       annotations:
         description: "Cpu load on host is in warning state \n The value {{ $value }} \n"
         summary: "Cpu load is in warning state \n"
+
     - alert: host_high_cpu_load
       expr: (sum(rate(container_cpu_usage_seconds_total{container!=""}[1m])) by (node) * 100) > 80
       for: 0m
@@ -28,6 +29,7 @@ spec:
       annotations:
         description: "Cpu load on host is high \n The value {{ $value }} \n"
         summary: "Cpu load is in critical state \n"
+
     - alert: K8s_pod_crash_looping
       expr: kube_pod_container_status_restarts_total{namespace="default"} > 2
       for: 0m
@@ -37,3 +39,53 @@ spec:
       annotations:
         description: "Pod {{ $labels.pod }} is crash looping \n No. of times={{$value}} \n"
         summary: "Pod is crash looping over 2 times \n"
+
+    - alert: KubePodCrashLoop
+      expr: sum(kube_pod_container_status_restarts_total) by (namespace, pod) > 5
+      for: 5m
+      labels:
+        severity: warning
+        service: kubelet
+      annotations:
+        summary: "Kubernetes pod is in a crash loop"
+        description: "Kubernetes pod has restarted more than 5 times in the last 5 minutes"
+
+    - alert: KubePodOOMKilled
+      expr: kube_pod_container_status_terminated_reason{reason="OOMKilled"} == 1
+      for: 5m
+      labels:
+        severity: critical
+        service: kubelet
+      annotations:
+        summary: "Kubernetes pod has been OOM-killed"
+        description: "Kubernetes pod has been OOM-killed in the last 5 minutes"
+
+    - alert: KubePodCrashLoopBackOff
+      expr: kube_pod_status_container_status_waiting_reason{reason="CrashLoopBackOff"} == 1
+      for: 5m
+      labels:
+        severity: warning
+        service: kubelet
+      annotations:
+        summary: "Kubernetes pod is in a crash loop"
+        description: "Kubernetes pod is in a crash loop and has failed to start multiple times in the last 5 minutes"
+
+    - alert: KubePodCPUUsageHigh
+      expr: sum(rate(container_cpu_usage_seconds_total{namespace=~"$namespace", pod=~"$pod", container!="POD"}[5m])) by (namespace, pod) > 1
+      for: 5m
+      labels:
+        severity: warning
+        service: kubelet
+      annotations:
+        summary: "Kubernetes pod CPU usage is high"
+        description: "Kubernetes pod CPU usage has been higher than 1 core over the last 5 minutes"
+
+    - alert: KubePodMemoryUsageHigh
+      expr: sum(container_memory_usage_bytes{namespace=~"$namespace", pod=~"$pod", container!="POD"}) by (namespace, pod) > 80 * 1024 * 1024
+      for: 5m
+      labels:
+        severity: warning
+        service: kubelet
+      annotations:
+        summary: "Kubernetes pod memory usage is high"
+        description: "Kubernetes pod memory usage has been higher than 80 MB over the last 5 minutes"
