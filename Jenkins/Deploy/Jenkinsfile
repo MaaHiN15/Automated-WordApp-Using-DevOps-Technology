@@ -16,7 +16,7 @@ pipeline{
                 sh 'kubectl get nodes'
             }
         }
-        stage("Application removal"){
+        stage("Application deployment"){
             steps{
                 script{
                     echo 'Deploying application container'
@@ -24,6 +24,7 @@ pipeline{
                     sh 'kubectl apply -f k8s/db.yaml'
                     sh 'kubectl apply -f k8s/view_db.yaml'
                     sh 'kubectl apply -f k8s/app.yaml'
+                    sh 'kubectl apply -f k8s/ing.yaml'
                 }
             }
         }
