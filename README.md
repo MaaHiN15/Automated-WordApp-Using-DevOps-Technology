@@ -46,5 +46,5 @@ Start the server
 
 ## Feedback
 
-If you have any feedback, please reach out to us at contact@maahin.tech
+If you have any feedback, please reach out to us at mahendran.devsensei@gmail.com
 
